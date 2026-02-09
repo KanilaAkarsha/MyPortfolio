@@ -12,15 +12,6 @@ export default function Navbar() {
   const closeMenu = () => {
     sideMenuRef.current.style.transform = "translateX(16rem)";
   };
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
-
-    if (document.documentElement.classList.contains("dark")) {
-      localStorage.theme = "dark";
-    } else {
-      localStorage.theme = "light";
-    }
-  };
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -60,18 +51,6 @@ export default function Navbar() {
         );
       }
     });
-
-    // -------- light mode and dark mode -----------
-
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
   }, []);
 
   return (
@@ -137,19 +116,6 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
-          <button onClick={toggleTheme}>
-            <img
-              src="/assets/moon_icon.png"
-              alt=""
-              className="w-5 dark:hidden"
-            />
-            <img
-              src="/assets/sun_icon.png"
-              alt=""
-              className="w-5 hidden dark:block"
-            />
-          </button>
-
           <a
             href="#contact"
             className="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full ml-4 font-Open_Sans dark:border-white/30">
