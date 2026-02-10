@@ -6,6 +6,7 @@ const openSans = Open_Sans({
   weight: ["400", "500", "600"],
   variable: "--font-Open_Sans",
 });
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400"],
@@ -21,7 +22,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="font-Open_Sans leading-8 dark:bg-darkTheme dark:text-white">
+      <body
+        className="
+        font-Open_Sans 
+        leading-8 
+        bg-white 
+        text-gray-900
+        dark:bg-neutral-950 
+        dark:text-white
+        transition-colors duration-300
+      ">
         {children}
       </body>
     </html>

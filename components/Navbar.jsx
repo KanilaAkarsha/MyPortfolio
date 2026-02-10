@@ -12,6 +12,15 @@ export default function Navbar() {
   const closeMenu = () => {
     sideMenuRef.current.style.transform = "translateX(16rem)";
   };
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+
+    if (document.documentElement.classList.contains("dark")) {
+      localStorage.theme = "dark";
+    } else {
+      localStorage.theme = "light";
+    }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -51,6 +60,18 @@ export default function Navbar() {
         );
       }
     });
+
+    // -------- light mode and dark mode -----------
+
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        globalThis.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, []);
 
   return (
@@ -77,7 +98,7 @@ export default function Navbar() {
 
         <ul
           ref={navLinkRef}
-          className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Open_Sans dark:border dark:border-white/30 dark:bg-transparent ">
+          className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white dark:bg-neutral-900 shadow-sm bg-opacity-50 font-Open_Sans dark:border dark:border-white/30 dark:bg-transparent ">
           <li>
             <a
               className="hover:text-gray-500 dark:hover:text-gray-300 transition"
@@ -116,6 +137,19 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
+          <button onClick={toggleTheme}>
+            <img
+              src="/assets/moon_icon.png"
+              alt=""
+              className="w-5 dark:hidden"
+            />
+            <img
+              src="/assets/sun_icon.png"
+              alt=""
+              className="w-5 hidden dark:block"
+            />
+          </button>
+
           <a
             href="#contact"
             className="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full ml-4 font-Open_Sans dark:border-white/30">
@@ -145,11 +179,15 @@ export default function Navbar() {
             />
           </button>
         </div>
+
         {/* -- ----- mobile menu ------  -- */}
         <ul
           ref={sideMenuRef}
           className="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo dark:bg-darkHover dark:text-white">
-          <div className="absolute right-6 top-6" onClick={closeMenu}>
+          <button
+            className="absolute right-6 top-6"
+            onClick={closeMenu}
+            aria-label="Close menu">
             <img
               src="/assets/close-black.png"
               alt=""
@@ -160,7 +198,7 @@ export default function Navbar() {
               alt=""
               className="w-5 cursor-pointer hidden dark:block"
             />
-          </div>
+          </button>
 
           <li>
             <a href="#top" onClick={closeMenu}>
