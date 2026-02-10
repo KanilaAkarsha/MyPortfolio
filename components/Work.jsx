@@ -2,7 +2,7 @@ export default function Work() {
   const work = [
     {
       name: "Cinescope",
-      icon: "/assets/work-1.png",
+      icon: "/assets/Cine.png",
       description: "Movie streaming platform",
       link: "https://cinescope-mu.vercel.app/",
     },
